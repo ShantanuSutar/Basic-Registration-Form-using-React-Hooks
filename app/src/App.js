@@ -7,6 +7,9 @@ export default function App() {
     lastName: "",
     email: "",
   });
+  const [valid, setValid] = useState(false);
+
+  const [sumbitted, setSubmitted] = useState(false);
 
   const firstNameChange = (e) => {
     setValues({ ...values, firstName: e.target.value });
@@ -14,44 +17,66 @@ export default function App() {
   const lastNameChange = (e) => {
     setValues({ ...values, lastName: e.target.value });
   };
-  const email = (e) => {
+  const emailChange = (e) => {
     setValues({ ...values, email: e.target.value });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (values.firstName && values.lastName && values.email) {
+      setValid(true);
+    }
+    setSubmitted(true);
+  };
+
   return (
-    <div class="form-container">
-      <form class="register-form">
-        <div class="success-message">Success! Thank you for registering</div>
+    <div className="form-container">
+      <form className="register-form" onSubmit={handleSubmit}>
+        {sumbitted && valid ? (
+          <div className="success-message">
+            Success! Thank you for registering
+          </div>
+        ) : null}
         <input
           id="first-name"
-          class="form-field"
+          className="form-field"
           type="text"
           placeholder="First Name"
           name="firstName"
+          value={values.firstName}
           onChange={firstNameChange}
         />
+        {sumbitted && !values.firstName ? (
+          <span id="first-name-error">Please enter a first name</span>
+        ) : null}
 
-        <span id="first-name-error">Please enter a first name</span>
         <input
           id="last-name"
-          class="form-field"
+          className="form-field"
           type="text"
           placeholder="Last Name"
           name="lastName"
+          value={values.lastName}
           onChange={lastNameChange}
         />
 
-        <span id="last-name-error">Please enter a last name</span>
+        {sumbitted && !values.lastName ? (
+          <span id="last-name-error">Please enter a last name</span>
+        ) : null}
         <input
           id="email"
-          class="form-field"
+          className="form-field"
           type="text"
           placeholder="Email"
           name="email"
-          onChange={email}
+          value={values.email}
+          onChange={emailChange}
         />
 
-        <span id="email-error">Please enter an email address</span>
-        <button class="form-field" type="submit">
+        {sumbitted && !values.email ? (
+          <span id="email-error">Please enter an email address</span>
+        ) : null}
+        <button className="form-field" type="submit">
           Register
         </button>
       </form>

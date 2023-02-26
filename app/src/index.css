@@ -47,6 +47,7 @@ span {
 
 input {
   background: #f2f2f2;
+  border-radius: 5px;
 }
 
 .error {
@@ -58,6 +59,10 @@ button {
   background: #4caf50;
   color: white;
   cursor: pointer;
+  border-radius: 5px;
+}
+button:hover {
+  opacity: 0.9;
 }
 
 button:disabled {
